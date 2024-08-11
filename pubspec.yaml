@@ -53,6 +53,7 @@ dependencies:
   file_picker: ^8.0.0+1
   flutter_sms_inbox: ^1.0.3
   fl_chart: ^0.68.0
+  csc_picker: ^0.2.7
 
 dev_dependencies:
   flutter_test:

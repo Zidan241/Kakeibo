@@ -233,19 +233,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          const SizedBox(
-            height: 15,
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(children: [
-              const Expanded(child: SizedBox()),
-              Text(
-                "${DateFormat("dd MMM").format(_range.start)} - ${DateFormat("dd MMM").format(_range.end)}",
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ]),
-          ),
           _payments.isNotEmpty
               ? ListView.separated(
                   padding: EdgeInsets.zero,
