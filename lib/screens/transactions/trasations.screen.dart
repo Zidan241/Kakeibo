@@ -365,6 +365,23 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  MaterialButton(
+                    onPressed: () {
+                      handleChooseDateRange();
+                    },
+                    height: double.minPositive,
+                    padding: EdgeInsets.zero,
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    child: Row(
+                      children: [
+                        Text(
+                          "${DateFormat("dd MMM").format(_range.start)} - ${DateFormat("dd MMM").format(_range.end)}",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        const Icon(Icons.arrow_drop_down_outlined)
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -386,23 +403,6 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                             fontWeight: FontWeight.w700,
                           ),
                         )
-                      ],
-                    ),
-                  ),
-                  MaterialButton(
-                    onPressed: () {
-                      handleChooseDateRange();
-                    },
-                    height: double.minPositive,
-                    padding: EdgeInsets.zero,
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    child: Row(
-                      children: [
-                        Text(
-                          "${DateFormat("dd MMM").format(_range.start)} - ${DateFormat("dd MMM").format(_range.end)}",
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        const Icon(Icons.arrow_drop_down_outlined)
                       ],
                     ),
                   ),
