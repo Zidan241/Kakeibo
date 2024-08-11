@@ -16,12 +16,11 @@ class ProfileWidget extends StatefulWidget {
 class _ProfileWidgetState extends State<ProfileWidget> {
   TextEditingController nameController = TextEditingController();
   TextEditingController dobController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
   // Male, Female
   List<bool> gender = [false, false];
-  String countryValue = "";
-  String stateValue = "";
-  String cityValue = "";
-  String address = "";
+
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
@@ -57,7 +56,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18)),
                     prefixIcon: const Icon(Icons.account_circle),
-                    hintText: "Enter your name",
                     label: const Text("Name")),
               ),
               const SizedBox(
@@ -92,70 +90,26 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               const SizedBox(
                 height: 20,
               ),
-              CSCPicker(
-                ///Enable disable state dropdown [OPTIONAL PARAMETER]
-                showStates: true,
-
-                /// Enable disable city drop down [OPTIONAL PARAMETER]
-                showCities: true,
-
-                ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
-                flagState: CountryFlag.DISABLE,
-
-                ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
-                dropdownDecoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(18)),
-                    color: Colors.white,
-                    border: Border.all(color: Colors.grey.shade300, width: 1)),
-
-                ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
-                disabledDropdownDecoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(18)),
-                    color: Colors.grey.shade300,
-                    border: Border.all(color: Colors.grey.shade300, width: 1)),
-
-                ///placeholders for dropdown search field
-                countrySearchPlaceholder: "Country",
-                stateSearchPlaceholder: "State",
-                citySearchPlaceholder: "City",
-
-                ///labels for dropdown
-                countryDropdownLabel: "Country",
-                stateDropdownLabel: "State",
-                cityDropdownLabel: "City",
-
-                ///Dialog box radius [OPTIONAL PARAMETER]
-                dropdownDialogRadius: 10.0,
-
-                ///Search bar radius [OPTIONAL PARAMETER]
-                searchBarRadius: 10.0,
-
-                ///triggers once country selected in dropdown
-                onCountryChanged: (value) {
-                  setState(() {
-                    ///store value in country variable
-                    countryValue = value;
-                  });
-                },
-
-                ///triggers once state selected in dropdown
-                onStateChanged: (value) {
-                  setState(() {
-                    ///store value in state variable
-                    stateValue = value!;
-                  });
-                },
-
-                ///triggers once city selected in dropdown
-                onCityChanged: (value) {
-                  setState(() {
-                    ///store value in city variable
-                    cityValue = value!;
-                  });
-                },
-
-                ///Show only specific countries using country filter
-                // countryFilter: ["United States", "Canada", "Mexico"],
+              TextFormField(
+                controller: countryController,
+                decoration: InputDecoration(
+                    filled: true,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(18)),
+                    prefixIcon: const Icon(Icons.flag),
+                    label: const Text("Country")),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                controller: cityController,
+                decoration: InputDecoration(
+                    filled: true,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(18)),
+                    prefixIcon: const Icon(Icons.location_on_outlined),
+                    label: const Text("City")),
               ),
             ],
           ),
@@ -185,12 +139,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             String genderStr = gender[0] ? "Male" : "Female";
             cubit.updateGender(genderStr).then((value) {});
           }
-          if (countryValue.isEmpty || stateValue.isEmpty || cityValue.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Please select your location")));
+          if (countryController.text.isEmpty || cityController.text.isEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("Please enter your country & city")));
             return;
           } else {
-            String address = "$cityValue, $stateValue, $countryValue";
+            String address =
+                "${countryController.text}, ${cityController.text}";
             cubit.updateAddress(address).then((value) {});
           }
           widget.onGetStarted();
