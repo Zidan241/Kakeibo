@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 class AIScreen extends StatefulWidget {
+  const AIScreen({Key? key}) : super(key: key);
+
   @override
   _AIScreenState createState() => _AIScreenState();
 }
