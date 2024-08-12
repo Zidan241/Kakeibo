@@ -119,21 +119,22 @@ Here's my financial data for July 2024:
         Increase savings rate
   ''';
     final content = Content.text(message);
+    return "";
 
-    setState(() {
-      if (response.text != null) {
-        _response = response.text!;
-      } else {
-        _response = "";
-      }
-    });
-    return _response;
+    // setState(() {
+    //   if (response.text != null) {
+    //     _response = response.text!;
+    //   } else {
+    //     _response = "";
+    //   }
+    // });
+    // return _response;
   }
+
   Future<void> _mockFetchData() async {
     await Future.delayed(Duration(seconds: 2));
     setState(() {
-      _response = 
-      '''
+      _response = '''
       # July 2024 Monthly Financial Report
 
 ## 1. Total Spending
