@@ -270,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       )),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => openAddPaymentPage(PaymentType.credit),
+        onPressed: () => openAddPaymentPage(PaymentType.debit),
         child: const Icon(Icons.add),
       ),
     );

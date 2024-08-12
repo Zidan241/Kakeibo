@@ -1,4 +1,6 @@
 import 'package:events_emitter/events_emitter.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:kakeibo/dao/category_dao.dart';
 import 'package:kakeibo/dao/payment_dao.dart';
 import 'package:kakeibo/events.dart';

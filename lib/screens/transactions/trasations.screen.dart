@@ -63,7 +63,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
   void handleChooseDateRange() async {
     final selected = await showDateRangePicker(
       context: context,
-      initialEntryMode: DatePickerEntryMode.calendarOnly,
+      initialEntryMode: DatePickerEntryMode.inputOnly,
       initialDateRange: _range,
       firstDate: DateTime(2019),
       lastDate: DateTime.now(),

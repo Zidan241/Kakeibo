@@ -129,7 +129,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 content: Text("Please enter your date of birth")));
             return;
           } else {
-            cubit.updateUsername(nameController.text).then((value) {});
+            cubit.updateDob(dobController.text).then((value) {});
           }
           if (!gender.contains(true)) {
             ScaffoldMessenger.of(context).showSnackBar(
