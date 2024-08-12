@@ -1,9 +1,9 @@
-import 'package:fintracker/dao/category_dao.dart';
-import 'package:fintracker/data/icons.dart';
-import 'package:fintracker/events.dart';
-import 'package:fintracker/model/category.model.dart';
-import 'package:fintracker/widgets/buttons/button.dart';
-import 'package:fintracker/widgets/currency.dart';
+import 'package:kakeibo/dao/category_dao.dart';
+import 'package:kakeibo/data/icons.dart';
+import 'package:kakeibo/events.dart';
+import 'package:kakeibo/model/category.model.dart';
+import 'package:kakeibo/widgets/buttons/button.dart';
+import 'package:kakeibo/widgets/currency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

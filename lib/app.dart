@@ -1,5 +1,5 @@
-import 'package:fintracker/bloc/cubit/app_cubit.dart';
-import 'package:fintracker/screens/main.screen.dart';
+import 'package:kakeibo/bloc/cubit/app_cubit.dart';
+import 'package:kakeibo/screens/main.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +14,7 @@ class App extends StatelessWidget {
         statusBarIconBrightness: MediaQuery.of(context).platformBrightness));
     return BlocBuilder<AppCubit, AppState>(builder: (context, state) {
       return MaterialApp(
-        title: 'Fintracker',
+        title: 'kakeibo',
         theme: ThemeData(
             useMaterial3: true,
             // colorScheme:

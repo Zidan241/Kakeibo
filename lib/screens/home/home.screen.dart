@@ -1,16 +1,16 @@
 import 'package:events_emitter/events_emitter.dart';
-import 'package:fintracker/bloc/cubit/app_cubit.dart';
-import 'package:fintracker/dao/account_dao.dart';
-import 'package:fintracker/dao/payment_dao.dart';
-import 'package:fintracker/events.dart';
-import 'package:fintracker/model/account.model.dart';
-import 'package:fintracker/model/category.model.dart';
-import 'package:fintracker/model/payment.model.dart';
-import 'package:fintracker/screens/home/widgets/account_slider.dart';
-import 'package:fintracker/screens/home/widgets/payment_list_item.dart';
-import 'package:fintracker/screens/payment_form.screen.dart';
-import 'package:fintracker/theme/colors.dart';
-import 'package:fintracker/widgets/currency.dart';
+import 'package:kakeibo/bloc/cubit/app_cubit.dart';
+import 'package:kakeibo/dao/account_dao.dart';
+import 'package:kakeibo/dao/payment_dao.dart';
+import 'package:kakeibo/events.dart';
+import 'package:kakeibo/model/account.model.dart';
+import 'package:kakeibo/model/category.model.dart';
+import 'package:kakeibo/model/payment.model.dart';
+import 'package:kakeibo/screens/home/widgets/account_slider.dart';
+import 'package:kakeibo/screens/home/widgets/payment_list_item.dart';
+import 'package:kakeibo/screens/payment_form.screen.dart';
+import 'package:kakeibo/theme/colors.dart';
+import 'package:kakeibo/widgets/currency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -143,7 +143,10 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(bottom: 15),
-                  child: Text("Hi! Good ${greeting()}"),
+                  child: Text(
+                    "Hi! Good ${greeting()},",
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
                 ),
                 BlocConsumer<AppCubit, AppState>(
                   listener: (context, state) {},

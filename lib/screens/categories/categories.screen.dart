@@ -1,11 +1,11 @@
 import 'package:events_emitter/events_emitter.dart';
-import 'package:fintracker/dao/category_dao.dart';
-import 'package:fintracker/dao/payment_dao.dart';
-import 'package:fintracker/events.dart';
-import 'package:fintracker/model/category.model.dart';
-import 'package:fintracker/model/payment.model.dart';
-import 'package:fintracker/theme/colors.dart';
-import 'package:fintracker/widgets/dialog/category_form.dialog.dart';
+import 'package:kakeibo/dao/category_dao.dart';
+import 'package:kakeibo/dao/payment_dao.dart';
+import 'package:kakeibo/events.dart';
+import 'package:kakeibo/model/category.model.dart';
+import 'package:kakeibo/model/payment.model.dart';
+import 'package:kakeibo/theme/colors.dart';
+import 'package:kakeibo/widgets/dialog/category_form.dialog.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesScreen extends StatefulWidget {
@@ -81,7 +81,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           Category category = _categories[index];
           double expenseProgress =
               (_categoryTotals[category.name] ?? 0) / (category.budget ?? 0);
-          bool isBeyondLimit = expenseProgress > 1.0;
+          bool isBeyondLimit =
+              expenseProgress.isFinite && expenseProgress > 1.0;
 
           return ListTile(
             onTap: () {

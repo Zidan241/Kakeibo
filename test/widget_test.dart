@@ -1,4 +1,4 @@
-import 'package:fintracker/app.dart';
+import 'package:kakeibo/app.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

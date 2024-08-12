@@ -1,6 +1,6 @@
-import 'package:fintracker/bloc/cubit/app_cubit.dart';
-import 'package:fintracker/helpers/color.helper.dart';
-import 'package:fintracker/screens/onboard/widgets/primary_text_field.dart';
+import 'package:kakeibo/bloc/cubit/app_cubit.dart';
+import 'package:kakeibo/helpers/color.helper.dart';
+import 'package:kakeibo/screens/onboard/widgets/primary_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:csc_picker/csc_picker.dart';
@@ -42,7 +42,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 height: 25,
               ),
               Text(
-                "Hi! welcome to Fintracker",
+                "Hi! welcome to kakeibo",
                 style: theme.textTheme.headlineMedium!.apply(
                     color: theme.colorScheme.primary, fontWeightDelta: 1),
               ),
