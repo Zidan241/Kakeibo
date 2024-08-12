@@ -18,14 +18,13 @@ class _AIScreenState extends State<AIScreen> {
   @override
   void initState() {
     super.initState();
-    _fetchData();
   }
 
-  Future<void> _fetchData() async {
+  Future<String> _fetchData() async {
     final apiKey = dotenv.env['GEMINI_API_KEY']!;
     if (apiKey == null) {
       stderr.writeln(r'No $GEMINI_API_KEY environment variable');
-      return;
+      return "";
     }
 
     // final model = GenerativeModel(
@@ -71,18 +70,18 @@ class _AIScreenState extends State<AIScreen> {
 
     final chat = model.startChat();
 
-    final Housing = 2000;
-    final Transportation = 500;
-    final Food = 1000;
-    final Utilities = 300;
-    final Insurance = 200;
-    final Medical_Healthcare = 400;
-    final Saving_Investing_Debt_Payments = 500;
-    final Personal_Spending = 300;
-    final Recreation_Entertainment = 200;
-    final Miscellaneous = 100;
+    const Housing = 2000;
+    const Transportation = 500;
+    const Food = 1000;
+    const Utilities = 300;
+    const Insurance = 200;
+    const Medical_Healthcare = 400;
+    const Saving_Investing_Debt_Payments = 500;
+    const Personal_Spending = 300;
+    const Recreation_Entertainment = 200;
+    const Miscellaneous = 100;
 
-    final message = '''
+    const message = '''
 Here's my financial data for July 2024:
 
     Total spending: \$3,250
@@ -129,6 +128,7 @@ Here's my financial data for July 2024:
         _response = "";
       }
     });
+    return _response;
   }
 
   String _formatFinancialReport(String text) {
@@ -189,36 +189,58 @@ Here's my financial data for July 2024:
           const Text("Gemini Financial Report")
         ]),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Row(
-            //   children: [
-            //     SvgPicture.asset(
-            //       'assets/icons/google-gemini-icon.svg',
-            //       width: 30,
-            //       height: 30,
-            //     ),
-            //     SizedBox(width: 10),
-            //     Text(
-            //       'Your financial report:',
-            //     ),
-            //   ],
-            // ),
-            SizedBox(height: 10),
-            // Text(
-            //   _response,
-            // ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SingleChildScrollView(child: TypeSet(_response)),
-            ),
-            // Add other widgets from ReportScreen here
-          ],
-        ),
-      ),
+      body: FutureBuilder<String>(
+          future: _fetchData(),
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: SingleChildScrollView(child: TypeSet(_response)),
+                    ),
+                  ],
+                ),
+              );
+            }
+          }),
+      // body: Padding(
+      //   padding: const EdgeInsets.all(16.0),
+      //   child: Column(
+      //     crossAxisAlignment: CrossAxisAlignment.start,
+      //     children: [
+      //       // Row(
+      //       //   children: [
+      //       //     SvgPicture.asset(
+      //       //       'assets/icons/google-gemini-icon.svg',
+      //       //       width: 30,
+      //       //       height: 30,
+      //       //     ),
+      //       //     SizedBox(width: 10),
+      //       //     Text(
+      //       //       'Your financial report:',
+      //       //     ),
+      //       //   ],
+      //       // ),
+      //       SizedBox(height: 10),
+      //       // Text(
+      //       //   _response,
+      //       // ),
+      //       Padding(
+      //         padding: const EdgeInsets.all(16.0),
+      //         child: SingleChildScrollView(child: TypeSet(_response)),
+      //       ),
+      //       // Add other widgets from ReportScreen here
+      //     ],
+      //   ),
+      // ),
     );
   }
 }
