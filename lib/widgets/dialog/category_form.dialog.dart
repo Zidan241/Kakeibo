@@ -78,7 +78,6 @@ class _CategoryForm extends State<CategoryForm> {
     );
 
     final state = await AppState.getState();
-    print(state.dob);
     final int age = DateTimeRange(
                 start: DateFormat('dd-mm-yy').parse(state.dob!),
                 end: DateTime.now())

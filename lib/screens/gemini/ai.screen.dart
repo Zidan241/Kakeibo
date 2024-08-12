@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:io';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
@@ -19,7 +20,7 @@ class _AIScreenState extends State<AIScreen> {
   }
 
   Future<void> _fetchData() async {
-    final apiKey = Platform.environment['GEMINI_API_KEY'];
+    final apiKey = dotenv.env['GEMINI_API_KEY']!;
     if (apiKey == null) {
       stderr.writeln(r'No $GEMINI_API_KEY environment variable');
       return;

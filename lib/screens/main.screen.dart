@@ -12,8 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -24,38 +22,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final PageController _controller = PageController(keepPage: true);
   int _selected = 0;
-  final SmsQuery _query = SmsQuery();
-  List<SmsMessage> _messages = [];
-
-  @override
-  void initState() {
-    super.initState();
-    // Request SMS permission when the app starts
-    _requestSmsPermission();
-  }
-
-  // Function to request SMS permission
-  Future<void> _requestSmsPermission() async {
-    if (await Permission.sms.request().isGranted) {
-      // Permission is granted, query SMS messages
-      _querySmsMessages();
-    }
-  }
-
-  // Function to query SMS messages
-  Future<void> _querySmsMessages() async {
-    final messages = await _query.querySms(
-      kinds: [
-        SmsQueryKind.inbox,
-        SmsQueryKind.sent,
-      ],
-      count: 10,
-    );
-    debugPrint('sms messages length: ${messages.length}');
-    debugPrint('sms messages : ${messages.first.toString()}');
-
-    setState(() => _messages = messages);
-  }
 
   @override
   Widget build(BuildContext context) {
