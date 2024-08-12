@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // debugPrint('sms messages : ${messages.first.toString()}');
     // For purposes of this competition, we will mock the messages
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getBool("sms_loaded") == true) return;
+    if (!prefs.containsKey("sms_loaded")) return;
     final messages = [
       SmsMessage.fromJson({
         "id": 1,
