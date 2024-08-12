@@ -176,8 +176,9 @@ class _HomeScreenState extends State<HomeScreen> {
       if (responseObj["transaction_type"] == "Debit") {
         await _paymentDao.upsert(Payment(
             account: accounts.first,
-            category:
-                categories.firstWhere((c) => c.name == responseObj["category"]),
+            category: categories.firstWhereOrNull(
+                    (c) => c.name == responseObj["category"]) ??
+                categories.firstWhere((c) => c.name == "Miscellaneous"),
             amount: double.parse(
                 responseObj["amount"].toString().replaceAll(',', '')),
             type: PaymentType.debit,
