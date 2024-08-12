@@ -5,6 +5,7 @@ import 'package:fintracker/screens/home/home.screen.dart';
 import 'package:fintracker/screens/onboard/onboard_screen.dart';
 import 'package:fintracker/screens/settings/settings.screen.dart';
 import 'package:fintracker/screens/transactions/trasations.screen.dart';
+import 'package:fintracker/screens/gemini/ai.screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -71,7 +72,8 @@ class _MainScreenState extends State<MainScreen> {
               HomeScreen(),
               TransactionsScreen(),
               CategoriesScreen(),
-              SettingsScreen()
+              SettingsScreen(),
+              AIScreen()
             ],
             onPageChanged: (int index) {
               setState(() {
@@ -106,6 +108,12 @@ class _MainScreenState extends State<MainScreen> {
                     fill: 1,
                   ),
                   label: "Settings"),
+              NavigationDestination(
+                  icon: Icon(
+                    Symbols.assignment,
+                    fill: 1,
+                  ),
+                  label: "AI Report"),
             ],
             onDestinationSelected: (int selected) {
               _controller.jumpToPage(selected);
