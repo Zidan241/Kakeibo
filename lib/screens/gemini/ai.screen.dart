@@ -1,18 +1,14 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
+import 'dart:io';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 class AIScreen extends StatefulWidget {
-  const AIScreen({super.key});
-
   @override
-  State<AIScreen> createState() => _AIScreenState();
+  _AIScreenState createState() => _AIScreenState();
 }
 
 class _AIScreenState extends State<AIScreen> {
-  String _response = '';
+  String _response = "";
 
   @override
   void initState() {
@@ -57,60 +53,11 @@ class _AIScreenState extends State<AIScreen> {
 
     final response = await chat.sendMessage(content);
     setState(() {
-      _response = response.text ?? "";
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Gemini Report",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(_response),
-        ),
-      ),
-    );
-  }
-}
-
-class ReportScreen extends StatefulWidget {
-  @override
-  _ReportScreenState createState() => _ReportScreenState();
-}
-
-class _ReportScreenState extends State<ReportScreen> {
-  String _report = 'Generating report...';
-
-  @override
-  void initState() {
-    super.initState();
-    _generateReport();
-  }
-
-  Future<void> _generateReport() async {
-    final apiKey = "YOUR_API_KEY_HERE"; // Replace with your actual API key
-
-    if (apiKey == null) {
-      stderr.writeln(r'No $GEMINI_API_KEY environment variable');
-      exit(1);
-    }
-
-    // Simulate fetching plain text data from LLM
-    final plainTextData = _response;
-
-    // Parse and format the plain text data
-    final formattedText = _formatFinancialReport(plainTextData);
-
-    setState(() {
-      _report = formattedText;
+      if (response.text != null) {
+        _response = response.text!;
+      } else {
+        _response = "";
+      }
     });
   }
 
@@ -119,19 +66,6 @@ class _ReportScreenState extends State<ReportScreen> {
     return text.replaceAllMapped(regex, (match) {
       return '<b><color>${match.group(0)}</color></b>';
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Financial Report'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: _buildFormattedReport(_report),
-      ),
-    );
   }
 
   Widget _buildFormattedReport(String formattedText) {
@@ -168,5 +102,35 @@ class _ReportScreenState extends State<ReportScreen> {
     }
 
     return spans;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Gemini Report"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Response:',
+            ),
+            SizedBox(height: 10),
+            // Text(
+            //   _response,
+            // ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: _buildFormattedReport(_response),
+            ),
+            // Add other widgets from ReportScreen here
+          ],
+        ),
+      ),
+    );
   }
 }
