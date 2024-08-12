@@ -9,6 +9,7 @@ import 'package:fintracker/screens/gemini/ai.screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
@@ -71,9 +72,9 @@ class _MainScreenState extends State<MainScreen> {
             children: const [
               HomeScreen(),
               TransactionsScreen(),
+              AIScreen(),
               CategoriesScreen(),
               SettingsScreen(),
-              AIScreen()
             ],
             onPageChanged: (int index) {
               setState(() {
@@ -81,43 +82,54 @@ class _MainScreenState extends State<MainScreen> {
               });
             },
           ),
-          bottomNavigationBar: NavigationBar(
-            selectedIndex: _selected,
-            destinations: const [
-              NavigationDestination(
+          bottomNavigationBar: ClipRRect(
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(40.0),
+                topRight: Radius.circular(40.0)),
+            child: NavigationBar(
+              selectedIndex: _selected,
+              destinations: [
+                const NavigationDestination(
                   icon: Icon(
                     Symbols.home,
                     fill: 1,
                   ),
-                  label: "Home"),
-              NavigationDestination(
+                  label: "Home",
+                ),
+                const NavigationDestination(
                   icon: Icon(
                     Symbols.wallet,
                     fill: 1,
                   ),
-                  label: "Accounts"),
-              NavigationDestination(
+                  label: "Payments",
+                ),
+                NavigationDestination(
+                  icon: SvgPicture.asset(
+                    'assets/icons/google-gemini-icon.svg',
+                    width: 30,
+                    height: 30,
+                  ),
+                  label: "Gemini",
+                ),
+                const NavigationDestination(
                   icon: Icon(
                     Symbols.category,
                     fill: 1,
                   ),
-                  label: "Budgets"),
-              NavigationDestination(
+                  label: "Budgets",
+                ),
+                const NavigationDestination(
                   icon: Icon(
                     Symbols.settings,
                     fill: 1,
                   ),
-                  label: "Settings"),
-              NavigationDestination(
-                  icon: Icon(
-                    Symbols.assignment,
-                    fill: 1,
-                  ),
-                  label: "AI Report"),
-            ],
-            onDestinationSelected: (int selected) {
-              _controller.jumpToPage(selected);
-            },
+                  label: "Settings",
+                ),
+              ],
+              onDestinationSelected: (int selected) {
+                _controller.jumpToPage(selected);
+              },
+            ),
           ),
         );
       },
