@@ -83,17 +83,41 @@ class _AIScreenState extends State<AIScreen> {
     final Miscellaneous = 100;
 
     final message = '''
-    Total Spending: \$${Housing + Transportation + Food + Utilities + Insurance + Medical_Healthcare + Saving_Investing_Debt_Payments + Personal_Spending + Recreation_Entertainment + Miscellaneous}
+Here's my financial data for July 2024:
 
-    Top 3 Expense Categories:
-       - Housing: \$${Housing}
-       - Transportation: \$${Transportation}
-       - Food: \$${Food}
-    Savings: 20%
+    Total spending: \$3,250
 
-    Budget Adherence: Flexible
+    Expense breakdown:
 
-    Goal for Next Month: \$10000
+        Housing: \$1,200
+
+        Food: \$600
+
+        Transportation: \$400
+
+        Entertainment: \$300
+
+        Utilities: \$250
+
+        Shopping: \$300
+
+        Miscellaneous: \$200
+
+    June 2024 total spending: \$3,100
+
+    Unusual expenses:
+
+        New laptop purchase: \$1,000
+
+    Amount saved: \$500
+
+    Monthly budget: \$3,000
+
+    Financial goals:
+
+        Reduce food expenses
+
+        Increase savings rate
   ''';
     final content = Content.text(message);
 
