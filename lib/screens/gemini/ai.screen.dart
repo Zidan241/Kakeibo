@@ -80,3 +80,93 @@ class _AIScreenState extends State<AIScreen> {
     );
   }
 }
+
+class ReportScreen extends StatefulWidget {
+  @override
+  _ReportScreenState createState() => _ReportScreenState();
+}
+
+class _ReportScreenState extends State<ReportScreen> {
+  String _report = 'Generating report...';
+
+  @override
+  void initState() {
+    super.initState();
+    _generateReport();
+  }
+
+  Future<void> _generateReport() async {
+    final apiKey = "YOUR_API_KEY_HERE"; // Replace with your actual API key
+
+    if (apiKey == null) {
+      stderr.writeln(r'No $GEMINI_API_KEY environment variable');
+      exit(1);
+    }
+
+    // Simulate fetching plain text data from LLM
+    final plainTextData = _response;
+
+    // Parse and format the plain text data
+    final formattedText = _formatFinancialReport(plainTextData);
+
+    setState(() {
+      _report = formattedText;
+    });
+  }
+
+  String _formatFinancialReport(String text) {
+    final regex = RegExp(r'\$?\d+[\d,]*(\.\d+)?%?');
+    return text.replaceAllMapped(regex, (match) {
+      return '<b><color>${match.group(0)}</color></b>';
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Financial Report'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: _buildFormattedReport(_report),
+      ),
+    );
+  }
+
+  Widget _buildFormattedReport(String formattedText) {
+    final spans = _parseFormattedText(formattedText);
+    return RichText(
+      text: TextSpan(
+        children: spans,
+        style: TextStyle(color: Colors.black),
+      ),
+    );
+  }
+
+  List<TextSpan> _parseFormattedText(String text) {
+    final regex = RegExp(r'(<b><color>.*?</color></b>)');
+    final matches = regex.allMatches(text);
+    final spans = <TextSpan>[];
+    int lastMatchEnd = 0;
+
+    for (final match in matches) {
+      if (match.start > lastMatchEnd) {
+        spans.add(TextSpan(text: text.substring(lastMatchEnd, match.start)));
+      }
+      final matchedText = match.group(0);
+      final cleanText = matchedText?.replaceAll(RegExp(r'<.*?>'), '');
+      spans.add(TextSpan(
+        text: cleanText,
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+      ));
+      lastMatchEnd = match.end;
+    }
+
+    if (lastMatchEnd < text.length) {
+      spans.add(TextSpan(text: text.substring(lastMatchEnd)));
+    }
+
+    return spans;
+  }
+}
