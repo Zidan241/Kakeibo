@@ -99,7 +99,7 @@ class _MainScreenState extends State<MainScreen> {
                     Symbols.category,
                     fill: 1,
                   ),
-                  label: "Categories"),
+                  label: "Budgets"),
               NavigationDestination(
                   icon: Icon(
                     Symbols.settings,

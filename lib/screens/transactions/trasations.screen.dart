@@ -442,7 +442,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
         ],
       )),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => openAddPaymentPage(PaymentType.credit),
+        onPressed: () => openAddPaymentPage(PaymentType.debit),
         child: const Icon(Icons.add),
       ),
     );

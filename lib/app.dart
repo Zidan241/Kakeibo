@@ -17,6 +17,8 @@ class App extends StatelessWidget {
         title: 'Fintracker',
         theme: ThemeData(
             useMaterial3: true,
+            // colorScheme:
+            //     ColorScheme.fromSeed(seedColor: const Color(0xFF6200EE)),
             brightness: MediaQuery.of(context).platformBrightness,
             navigationBarTheme: NavigationBarThemeData(
               labelTextStyle:

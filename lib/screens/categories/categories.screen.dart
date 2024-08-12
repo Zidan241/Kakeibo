@@ -1,7 +1,10 @@
 import 'package:events_emitter/events_emitter.dart';
 import 'package:fintracker/dao/category_dao.dart';
+import 'package:fintracker/dao/payment_dao.dart';
 import 'package:fintracker/events.dart';
 import 'package:fintracker/model/category.model.dart';
+import 'package:fintracker/model/payment.model.dart';
+import 'package:fintracker/theme/colors.dart';
 import 'package:fintracker/widgets/dialog/category_form.dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -14,24 +17,45 @@ class CategoriesScreen extends StatefulWidget {
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
   final CategoryDao _categoryDao = CategoryDao();
+  final PaymentDao _paymentDao = PaymentDao();
   EventListener? _categoryEventListener;
   List<Category> _categories = [];
+  List<Payment> _payments = [];
+  final DateTimeRange _range = DateTimeRange(
+      start: DateTime(DateTime.now().year, DateTime.now().month, 1),
+      end: DateTime(DateTime.now().year, DateTime.now().month + 1, 0));
+  Map<String, double> _categoryTotals = {};
 
-  void loadData() async {
+  void _fetchTransactions() async {
+    List<Payment> trans =
+        await _paymentDao.find(range: _range, category: null, account: null);
+    Map<String, double> categoryTotals = {};
+    for (Payment payment in trans) {
+      if (categoryTotals[payment.category.name] == null) {
+        categoryTotals[payment.category.name] = payment.amount;
+      } else {
+        categoryTotals[payment.category.name] =
+            categoryTotals[payment.category.name]! + payment.amount;
+      }
+    }
+    //fetch categories
     List<Category> categories = await _categoryDao.find();
+
     setState(() {
+      _payments = trans;
       _categories = categories;
+      _categoryTotals = categoryTotals;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    loadData();
+    _fetchTransactions();
 
     _categoryEventListener = globalEvent.on("category_update", (data) {
       debugPrint("categories are changed");
-      loadData();
+      _fetchTransactions();
     });
   }
 
@@ -47,7 +71,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Categories",
+          "Monthly Budgets",
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
         ),
       ),
@@ -56,7 +80,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         itemBuilder: (builder, index) {
           Category category = _categories[index];
           double expenseProgress =
-              (category.expense ?? 0) / (category.budget ?? 0);
+              (_categoryTotals[category.name] ?? 0) / (category.budget ?? 0);
+          bool isBeyondLimit = expenseProgress > 1.0;
+
           return ListTile(
             onTap: () {
               showDialog(
@@ -72,11 +98,24 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 color: category.color,
               ),
             ),
-            title: Text(
-              category.name,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodyMedium?.merge(
-                  const TextStyle(fontWeight: FontWeight.w500, fontSize: 15)),
+            title: Row(
+              children: [
+                Text(
+                  category.name,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyMedium?.merge(
+                      const TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 15)),
+                ),
+                if (isBeyondLimit)
+                  const Padding(
+                    padding: EdgeInsets.only(left: 5),
+                    child: Icon(
+                      Icons.warning_amber_rounded,
+                      color: ThemeColors.error,
+                    ),
+                  ),
+              ],
             ),
             subtitle: expenseProgress.isFinite
                 ? ClipRRect(
