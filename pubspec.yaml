@@ -90,6 +90,11 @@ flutter:
     - .env
     - assets/currencies.json
     - assets/icons/google-gemini-icon.svg
+    - assets/icons/rocket.png
+    - assets/icons/money.png
+    - assets/icons/logo.png
+    - assets/icons/logo_with_name.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

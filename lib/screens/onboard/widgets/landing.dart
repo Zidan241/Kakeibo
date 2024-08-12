@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:kakeibo/helpers/color.helper.dart';
 import 'package:kakeibo/widgets/buttons/button.dart';
 import 'package:flutter/material.dart';
@@ -16,18 +17,17 @@ class LandingPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "kakeibo",
-                style: theme.textTheme.headlineLarge!.apply(
-                    color: theme.colorScheme.primary, fontWeightDelta: 1),
+              Image.asset(
+                'assets/icons/logo_with_name.png',
+                height: 50,
               ),
               const SizedBox(
                 height: 15,
               ),
-              Text(
-                "Easy method to manage your savings",
-                style: theme.textTheme.headlineMedium!.apply(
-                    color: ColorHelper.lighten(theme.colorScheme.primary, 0.1)),
+              Padding(
+                padding: const EdgeInsets.only(left: 25),
+                child: Text("Redefining expenses tracking!",
+                    style: theme.textTheme.headlineMedium),
               ),
               const SizedBox(
                 height: 25,
@@ -43,7 +43,23 @@ class LandingPage extends StatelessWidget {
                     width: 15,
                   ),
                   const Expanded(
-                      child: Text("Using our app, manage your finances."))
+                      child: Text("Track your finances and set budgets"))
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Icon(
+                    Icons.check_circle,
+                    color: theme.colorScheme.primary,
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  const Expanded(child: Text("Visual expense monitoring"))
                 ],
               ),
               const SizedBox(
@@ -60,8 +76,26 @@ class LandingPage extends StatelessWidget {
                     width: 15,
                   ),
                   const Expanded(
-                      child: Text(
-                          "Simple expense monitoring for more accurate budgeting"))
+                    child: Text("Automated expenses tracking through sms"),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Icon(
+                    Icons.check_circle,
+                    color: theme.colorScheme.primary,
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  const Expanded(
+                    child: Text("Privacy prioritized, all data stored locally"),
+                  )
                 ],
               ),
               const SizedBox(
@@ -79,20 +113,41 @@ class LandingPage extends StatelessWidget {
                   ),
                   const Expanded(
                     child: Text(
-                        "Keep track of your spending whenever and wherever you are."),
+                        "AI Integrations to get help on setting budgets, extracting information from sms & generate a detailed report to help you better manage your expenses"),
                   )
                 ],
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              Center(
+                  child: Image.asset(
+                'assets/icons/rocket.png',
+                height: 200,
+              )),
               const Expanded(child: SizedBox()),
-              const Text(
-                  "*Since this application is currently in beta, be prepared for UI changes and unexpected behaviours."),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: SvgPicture.asset(
+                      'assets/icons/google-gemini-icon.svg',
+                      width: 20,
+                      height: 20,
+                    ),
+                  ),
+                  const Text(
+                    "Powered by Google Gemini",
+                  ),
+                ],
+              ),
               const SizedBox(
                 height: 20,
               ),
               Container(
                 alignment: Alignment.bottomRight,
                 child: AppButton(
-                  color: theme.colorScheme.inversePrimary,
+                  color: theme.colorScheme.primary,
                   isFullWidth: true,
                   onPressed: onGetStarted,
                   size: AppButtonSize.large,

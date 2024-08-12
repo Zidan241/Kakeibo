@@ -34,17 +34,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(
-                Icons.account_balance_wallet,
-                size: 70,
-              ),
+              Image.asset('assets/icons/logo_with_name.png', height: 75),
               const SizedBox(
                 height: 25,
-              ),
-              Text(
-                "Hi! welcome to kakeibo",
-                style: theme.textTheme.headlineMedium!.apply(
-                    color: theme.colorScheme.primary, fontWeightDelta: 1),
               ),
               const SizedBox(
                 height: 20,

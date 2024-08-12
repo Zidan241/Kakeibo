@@ -1,4 +1,5 @@
 import 'package:events_emitter/events_emitter.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:kakeibo/bloc/cubit/app_cubit.dart';
 import 'package:kakeibo/dao/account_dao.dart';
 import 'package:kakeibo/dao/payment_dao.dart';
@@ -143,9 +144,18 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(bottom: 15),
-                  child: Text(
-                    "Hi! Good ${greeting()},",
-                    style: Theme.of(context).textTheme.bodyLarge,
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/icons/logo.png',
+                        width: 50,
+                        color: Colors.black87,
+                      ),
+                      Text(
+                        "Hi! Good ${greeting()},",
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ],
                   ),
                 ),
                 BlocConsumer<AppCubit, AppState>(
