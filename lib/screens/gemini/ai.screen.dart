@@ -132,45 +132,38 @@ Here's my financial data for July 2024:
     return _response;
   }
 
-  Future<void> _mockFetchData() async {
-    await Future.delayed(Duration(seconds: 2));
+  Future<String> _mockFetchData() async {
+    // await Future.delayed(Duration(seconds: 2));
     setState(() {
       _response = '''
-      # July 2024 Monthly Financial Report
+*July 2024 Monthly Financial Report*
 
-## 1. Total Spending
+1. *Total Spending*
 **Total spent this month: \$3,250**
 
-## 2. Top 3 Expense Categories
+2. *Top 3 Expense Categories*
 1. Housing: \$1,200
 2. Food: \$600
 3. Transportation: \$400
 
-## 3. Comparison to Previous Month
+3. *Comparison to Previous Month*
 Spending increased by 4.8% compared to June 2024 (\$3,100).
 
-## 4. Unusual Expenses
+4. *Unusual Expenses*
 A significant one-time expense was the purchase of a new laptop for \$1,000.
 
-## 5. Savings
+5. *Savings*
 You were able to save \$500 this month.
 
-## 6. Budget Adherence
+6. *Budget Adherence*
 You exceeded your monthly budget of \$3,000 by \$250, primarily due to the laptop purchase.
 
-## 7. Goal for Next Month
+7. *Goal for Next Month*
 Reduce food expenses by 10% to bring total spending closer to the monthly budget.
-
----
-
-### Additional Insights:
-- Your current spending aligns closely with the 50/30/20 rule:
-  - Needs (Housing, Food, Transportation, Utilities): 75% (vs. 50% recommended)
-  - Wants (Entertainment, Shopping): 18% (vs. 30% recommended)
-  - Savings: 15% (vs. 20% recommended)
-- Consider reviewing your "needs" categories for potential savings opportunities.
 ''';
     });
+
+    return "";
   }
 
   String _formatFinancialReport(String text) {
@@ -232,7 +225,7 @@ Reduce food expenses by 10% to bring total spending closer to the monthly budget
         ]),
       ),
       body: FutureBuilder<String>(
-          future: _fetchData(),
+          future: _mockFetchData(),
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
