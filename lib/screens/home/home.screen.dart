@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // debugPrint('sms messages : ${messages.first.toString()}');
     // For purposes of this competition, we will mock the messages
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (!prefs.containsKey("sms_loaded")) return;
+    if (prefs.containsKey("sms_loaded")) return;
     final messages = [
       SmsMessage.fromJson({
         "id": 1,
@@ -94,30 +94,30 @@ class _HomeScreenState extends State<HomeScreen> {
         "date":
             DateTime.now().add(const Duration(days: -4)).millisecondsSinceEpoch,
       }),
-      SmsMessage.fromJson({
-        "id": 2,
-        "address": "HSBC",
-        "body":
-            "From HSBC: 11AUG24 TINO AND FRIENDS Purchase from ***-111 EGP 105.00- Your available balance is EGP 8,536.88",
-        "date":
-            DateTime.now().add(const Duration(days: -3)).millisecondsSinceEpoch,
-      }),
-      SmsMessage.fromJson({
-        "id": 3,
-        "address": "HSBC",
-        "body":
-            "From HSBC: 10AUG24 SHAMROO Purchase from ***-111 EGP 1,130.00- Your available balance is EGP 8,849.88",
-        "date":
-            DateTime.now().add(const Duration(days: -2)).millisecondsSinceEpoch,
-      }),
-      SmsMessage.fromJson({
-        "id": 4,
-        "address": "HSBC",
-        "body":
-            "From HSBC: 10AUG24 YLDEZ FOR KIDZ Purchase from ***-111 EGP 1,335.00- Your available balance is EGP 9,979.88",
-        "date":
-            DateTime.now().add(const Duration(days: -1)).millisecondsSinceEpoch,
-      }),
+      // SmsMessage.fromJson({
+      //   "id": 2,
+      //   "address": "HSBC",
+      //   "body":
+      //       "From HSBC: 11AUG24 TINO AND FRIENDS Purchase from ***-111 EGP 105.00- Your available balance is EGP 8,536.88",
+      //   "date":
+      //       DateTime.now().add(const Duration(days: -3)).millisecondsSinceEpoch,
+      // }),
+      // SmsMessage.fromJson({
+      //   "id": 3,
+      //   "address": "HSBC",
+      //   "body":
+      //       "From HSBC: 10AUG24 SHAMROO Purchase from ***-111 EGP 1,130.00- Your available balance is EGP 8,849.88",
+      //   "date":
+      //       DateTime.now().add(const Duration(days: -2)).millisecondsSinceEpoch,
+      // }),
+      // SmsMessage.fromJson({
+      //   "id": 4,
+      //   "address": "HSBC",
+      //   "body":
+      //       "From HSBC: 10AUG24 YLDEZ FOR KIDZ Purchase from ***-111 EGP 1,335.00- Your available balance is EGP 9,979.88",
+      //   "date":
+      //       DateTime.now().add(const Duration(days: -1)).millisecondsSinceEpoch,
+      // }),
     ];
     final model = GenerativeModel(
       model: 'gemini-1.5-flash',
@@ -188,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
     await prefs.setBool("sms_loaded", true);
-    setState(() {});
+    _fetchTransactions();
   }
 
   void openAddPaymentPage(PaymentType type) async {
